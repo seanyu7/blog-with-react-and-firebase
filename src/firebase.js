@@ -14,6 +14,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app); //この記述はfirebaseを初期化する際に必要となるもので、firebaseのauthentificationを使う際には必要となる。（認証の初期化）
 const provider = new GoogleAuthProvider(); //Google認証のためのプロバイダーを作成する。//インスタンス化というらしい。
-const firestore = getFirestore(app); //firestoreのデータベースを初期化する。
+const db = getFirestore(app); //firestoreのデータベースを初期化する。
 
 export {auth, provider, db};
