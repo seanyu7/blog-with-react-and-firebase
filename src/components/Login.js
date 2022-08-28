@@ -13,6 +13,7 @@ const navigate = useNavigate();
       setIsAuth(true);
       //このままではログインした状態にはなるがリロードすれば、またログインしていない状態になってしまうため、リロードしても状態を保って置けるようにしなければならない。
       navigate("/");
+    // used a navigation to navigate which autiomatically move into the home page.
     });
   };
 
