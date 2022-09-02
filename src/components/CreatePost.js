@@ -1,15 +1,28 @@
 import React from "react";
 import "./createpost.css";
 import { useState } from "react";
+import {addDoc, collection} from "firebase/firestore";
+import {db,auth} from "../firebase";
+import {useNavigate} from "react-router-dom";
 
 const CreatePost = () => {
   const [title, setTitle] = useState();
   const [postText, setPostText] = useState();
 
-  const createPost = () => {
-    console.log(title)
-    console.log(postText)
-  }
+  const navigate = useNavigate();
+
+  const createPost = async () => {
+   await addDoc (collection(db,"posts"),{
+    title:title,
+    postText:postText,
+    author:{
+      username: auth.currentUser.displayName,
+      //上記auth.currentUser.displayNameはどのユーザーが現在使用しているのかについてfirebase内にあるデータから取得するためにfirebase側が用意したプロパティのこと。
+      id: auth.currentUser.uid
+    }
+   }) 
+   navigate("/");
+  };
 
   return (
     <div className="createPostPage">
@@ -20,14 +33,14 @@ const CreatePost = () => {
           <input
             type="text"
             placeholder="Put in your title here"
-            onchange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div className="inputPost">
           <div>Tweet</div>
           <textarea
             placeholder="Put in your thoughts now"
-            onchange={(e) => setPostText(e.target.value)}
+            onChange={(e) => setPostText(e.target.value)}
           ></textarea>
         </div>
         <button className="postButton" onClick={createPost}>Tweet</button>
