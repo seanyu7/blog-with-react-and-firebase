@@ -9,23 +9,31 @@ import {
   faArrowRotateBack,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = ({isAuth}) => {
+const Navbar = ({ isAuth }) => {
   return (
     <nav>
       <Link to="/">
         <FontAwesomeIcon icon={faHouse} />
         Home
       </Link>
-      <Link to="/createpost">
-        <FontAwesomeIcon icon={faFilePen} />
-        Create a Post
-      </Link>
-      {!isAuth ? <Link to="/login">
-        <FontAwesomeIcon icon={faArrowRightToBracket} />
-        LogIn
-      </Link> : <Link to="/logout">
-        <FontAwesomeIcon icon={faArrowRotateBack} />
-      Logout</Link>}
+
+      {!isAuth ? (
+        <Link to="/login">
+          <FontAwesomeIcon icon={faArrowRightToBracket} />
+          LogIn
+        </Link>
+      ) : (
+        <>
+          <Link to="/createpost">
+            <FontAwesomeIcon icon={faFilePen} />
+            Create a Post
+          </Link>
+          <Link to="/logout">
+            <FontAwesomeIcon icon={faArrowRotateBack} />
+            Logout
+          </Link>
+        </>
+      )}
     </nav>
   );
 };
