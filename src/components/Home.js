@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import "./Home.css";
 
@@ -19,19 +19,25 @@ const Home = () => {
 
   return (
     <div className="homePage">
+      {postLists.map((post) => {
+        //このreturnは画面上に表示させたい部分を記述する際に使うもので、returnのなかでmap関数などの関数を使って新たに画面に表示させてい場合は、returnのなかでreturnを使うことができる。
+        console.log(post);
+        return (
       <div className="postContents">
         <div className="postHeader">
-          <h1>Title</h1>
+          <h1>{post.title}</h1>
         </div>
 
         <div className="postTextContainer">
-          put some tweet here as your tweet for the day
+          {post.postsText}
         </div>
         <div className="nameAndDeleteButton">
-          <h3>@SeanYuTakaki</h3>
+          <h3>@{post.author.username}</h3>
           <button>Delete</button>
         </div>
       </div>
+      );
+})};
     </div>
   );
 };
