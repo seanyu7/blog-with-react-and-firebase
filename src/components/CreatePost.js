@@ -1,28 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./createpost.css";
 import { useState } from "react";
-import {addDoc, collection} from "firebase/firestore";
-import {db,auth} from "../firebase";
-import {useNavigate} from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { db, auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
-const CreatePost = () => {
+const CreatePost = ({isAuth}) => {
   const [title, setTitle] = useState();
   const [postText, setPostText] = useState();
 
   const navigate = useNavigate();
 
   const createPost = async () => {
-   await addDoc (collection(db,"posts"),{
-    title:title,
-    postText:postText,
-    author:{
-      username: auth.currentUser.displayName,
-      //上記auth.currentUser.displayNameはどのユーザーが現在使用しているのかについてfirebase内にあるデータから取得するためにfirebase側が用意したプロパティのこと。
-      id: auth.currentUser.uid
-    }
-   }) 
-   navigate("/");
+    await addDoc(collection(db, "posts"), {
+      title: title,
+      postText: postText,
+      author: {
+        username: auth.currentUser.displayName,
+        //上記auth.currentUser.displayNameはどのユーザーが現在使用しているのかについてfirebase内にあるデータから取得するためにfirebase側が用意したプロパティのこと。
+        id: auth.currentUser.uid,
+      },
+    });
+    navigate("/");
   };
+
+  useEffect(()=>{
+    if (!isAuth){
+      navigate("/login");
+    }
+  })
+
 
   return (
     <div className="createPostPage">
@@ -43,7 +50,9 @@ const CreatePost = () => {
             onChange={(e) => setPostText(e.target.value)}
           ></textarea>
         </div>
-        <button className="postButton" onClick={createPost}>Tweet</button>
+        <button className="postButton" onClick={createPost}>
+          Tweet
+        </button>
       </div>
     </div>
   );
