@@ -23,7 +23,7 @@ const Home = () => {
         //このreturnは画面上に表示させたい部分を記述する際に使うもので、returnのなかでmap関数などの関数を使って新たに画面に表示させてい場合は、returnのなかでreturnを使うことができる。
         console.log(post);
         return (
-      <div className="postContents">
+      <div className="postContents" key={post.id}>
         <div className="postHeader">
           <h1>{post.title}</h1>
         </div>
@@ -32,7 +32,7 @@ const Home = () => {
           {post.postsText}
         </div>
         <div className="nameAndDeleteButton">
-          <h3>@{post.author.username}</h3>
+          <h3>@</h3>
           <button>Delete</button>
         </div>
       </div>
