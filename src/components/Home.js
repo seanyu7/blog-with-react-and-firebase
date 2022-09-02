@@ -29,7 +29,7 @@ const Home = () => {
         </div>
 
         <div className="postTextContainer">
-          <h3>{post.postsText}</h3>
+          {post.postText}
         </div>
         <div className="nameAndDeleteButton">
           <h3>@</h3>
