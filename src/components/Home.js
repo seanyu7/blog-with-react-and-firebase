@@ -1,6 +1,20 @@
-import React from 'react'
+import { collection, getDocs } from 'firebase/firestore';
+import React, { useEffect } from 'react'
+import {db} from "../firebase";
 import './Home.css'
+
+
 const Home = () => {
+useEffect(()=>{
+  const getPost = async () => {
+    const data = await getDocs(collection(db,"posts"));
+    console.log(data.docs.map((doc) => ({...doc.data(), id:doc.id})));
+    //forebaseの場合データの階層が複雑に構成されているためデータを取り出すことがかなり難しいので、spread構文を使ってデータを取り出すことが必要となる。
+
+};
+getPost();
+},[]);
+
   return (
     <div className='homePage'>
       <div className='postContents'>
