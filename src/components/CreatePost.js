@@ -19,6 +19,7 @@ const CreatePost = ({isAuth}) => {
         username: auth.currentUser.displayName,
         //上記auth.currentUser.displayNameはどのユーザーが現在使用しているのかについてfirebase内にあるデータから取得するためにfirebase側が用意したプロパティのこと。
         id: auth.currentUser.uid,
+        //これを使うことで、どのユーザーが投稿したのかを判別することができる。
       },
     });
     navigate("/");
